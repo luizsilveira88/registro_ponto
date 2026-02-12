@@ -7,9 +7,9 @@ const BiometriaHome = {
 // =========================
 
 // Inicialização
-document.addEventListener('DOMContentLoaded', initialize);
+document.addEventListener('DOMContentLoaded', init);
 
-// Ao abrir modal, initialize Choices.js
+// Ao abrir modal, init Choices.js
 document
     .querySelector('#modal-colaborador')
     .addEventListener('shown.bs.modal', initModalBiometria);
@@ -23,7 +23,7 @@ document
 // Inicialização
 // =========================
 
-async function initialize() {
+async function init() {
     try {
         await loadColaborador();
     } catch (error) {
@@ -54,21 +54,14 @@ async function loadColaborador() {
                 responsive: 0,
             },
             {
-                title: 'CNPJ',
-                field: 'cnpj',
-                formatter: (cell) => formatValue(cell.getValue(), "cnpj"),
+                title: 'Email',
+                field: 'email',
                 headerSort: false,
                 responsive: 1,
             },
             {
                 title: 'Status',
                 field: 'get_status_display',
-                headerSort: false,
-                responsive: 0,
-            },
-            {
-                title: 'Cidade',
-                field: 'get_cidade_display',
                 headerSort: false,
                 responsive: 1,
             },
@@ -115,7 +108,7 @@ function afterSubmit(form, data) {
 
     if (data.result == 'error') return;
 
-    initialize();
+    init();
     modal.hide();
     form.classList.remove('was-validated');
     form.reset();

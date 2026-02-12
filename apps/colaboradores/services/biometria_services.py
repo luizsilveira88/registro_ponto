@@ -1,25 +1,20 @@
 # Python
-import uuid
 import face_recognition
 import numpy as np
 
-# Django
-from django.contrib.contenttypes.models import ContentType
-
 # Models
 from ..models.biometria import Biometria
+from ..models.colaborador import Colaborador
 
-# Services
-from core.services.auditoria_svc import create_auditoria
-
-from trabalhador.models import biometria
-
-
-class BiometriaException(Exception):
-    pass
+# Exception
+from ..exceptions.biometria_exceptions import (
+    BiometriaMultipleFaces,
+    BiometriaNoFace,
+    BiometriaEncodingError,
+)
 
 
-def create_biometria(colaborador_id: int, file) -> None:
+def create_biometria(colaborador: Colaborador, file) -> None:
     """
     Cadastro biométrico do usuário
     """
@@ -27,25 +22,25 @@ def create_biometria(colaborador_id: int, file) -> None:
     face_locations = face_recognition.face_locations(image, model="hog")
 
     if not face_locations:
-        raise BiometriaException("Nenhum rosto detectado na imagem")
+        raise BiometriaNoFace
 
     if len(face_locations) > 1:
-        raise BiometriaException("Mais de um rosto detectado")
+        raise BiometriaMultipleFaces
 
     encodings = face_recognition.face_encodings(image, face_locations)
     if not encodings:
-        raise BiometriaException("Não foi possível gerar o encoding facial")
+        raise BiometriaEncodingError
 
     encoding = encodings[0]
 
     # Inativar outras biometrias do usuário
-    Biometria.objects.filter(colaborador__id=colaborador_id).update(
+    Biometria.objects.filter(colaborador=colaborador).update(
         posicao=Biometria.Posicao.INATIVO
     )
 
     # Salvar nova biometria
     biometria = Biometria.objects.create(
-        colaborador__id=colaborador_id,
+        colaborador=colaborador,
         encoding=encoding.tobytes(),
     )
 
@@ -67,17 +62,17 @@ def check_biometria(colaborador_id: int, file, tolerance: float = 0.48) -> dict:
     candidate_face_locations = face_recognition.face_locations(candidate_image)
 
     if not candidate_face_locations:
-        raise BiometriaException("Nenhum rosto detectado na imagem")
+        raise BiometriaNoFace
 
     if len(candidate_face_locations) > 1:
-        raise BiometriaException("Mais de um rosto detectado")
+        raise BiometriaMultipleFaces
 
     candidate_encodings = face_recognition.face_encodings(
         candidate_image, known_face_locations=candidate_face_locations
     )
 
     if not candidate_encodings:
-        raise BiometriaException("Não foi possível gerar o encoding facial")
+        raise BiometriaEncodingError
 
     candidate_encoding = candidate_encodings[0]
 

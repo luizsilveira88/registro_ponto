@@ -34,8 +34,9 @@ class ColaboradorViewSet(ViewSet):
         )
 
     def create(self, request, *args, **kwargs):
-        colaborador = colaborador_services.create_colaborador(
-            request.data,
+        colaborador = colaborador_services.create_colaborador_with_biometria(
+            data=request.data,
+            file=request.FILES.get("image"),
         )
         data = ColaboradorDetailSerializer(colaborador).data
         return ResponseSuccess(
