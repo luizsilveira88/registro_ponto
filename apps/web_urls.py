@@ -5,7 +5,7 @@ urlpatterns = [
         "",
         include(
             "apps.colaboradores.urls.web",
-            namespace="usuario_web",
+            namespace="colaborador_web",
         ),
     ),
     path(
@@ -20,6 +20,13 @@ urlpatterns = [
         include(
             "apps.credenciais.urls.web",
             namespace="auth_web",
+        ),
+    ),
+    path(
+        "",
+        include(
+            "apps.pontos.urls.web",
+            namespace="ponto_web",
         ),
     ),
 ]

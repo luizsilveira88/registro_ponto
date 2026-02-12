@@ -1,0 +1,172 @@
+{% extends 'core/partials/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+  <div class="container">
+    <div class="page-inner">
+      <div class="page-header">
+        <div>
+          <div class="fw-bold d-flex align-items-center mb-2">
+            <a href="{% url 'colaborador_web:colaborador-list' %}" class="text-dark me-2"><i class="fas fa-arrow-left"></i></a>
+            <h4 class="fw-bold" id="title"></h4>
+          </div>
+
+          <ul class="breadcrumbs mb-5">
+            <li class="nav-home">
+              <a href="{% url 'internal_home' %}"><i class="icon-home me-2"></i></a>
+            </li>
+            <li class="separator">
+              <i class="icon-arrow-right"></i>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'colaborador_web:colaborador-list' %}">Relação de colaboradores</a>
+            </li>
+            <li class="separator">
+              <i class="icon-arrow-right"></i>
+            </li>
+            <li class="nav-item">
+              <span>Dados do colaborador</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="row">
+        <!-- Coluna Esquerda -->
+        <div class="col-md-6">
+          <!-- Dados principais -->
+          <div class="card" id="card-dados-principais" data-url="{% url 'colaborador_api:colaborador-dados-principais' py_vars.colaborador_id %}">
+            <div class="card-header">
+              <div class="d-md-flex justify-content-between">
+                <div class="card-title">Dados Principais</div>
+                <div>
+                  <button class="btn btn-icon" data-bs-toggle="modal" data-bs-target="#modal-colaborador"><i class="fas fa-pen"></i></button>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-12 mb-3">
+                  <strong>Nome:</strong>
+                  <p class="display_nome"></p>
+                </div>
+                <div class="col-md-5 mb-3">
+                  <strong>CNPJ:</strong>
+                  <p class="display_cnpj"></p>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <strong>Cidade:</strong>
+                  <p class="display_get_cidade_display"></p>
+                </div>
+                <div class="col-md-3 mb-3">
+                  <strong>Status:</strong>
+                  <p class="display_get_status_display"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Coluna Direita -->
+        <div class="col-md-6">
+          <!-- Configurações -->
+          <div class="card" id="card-configuracoes" data-url="{% url 'colaborador_api:colaborador-configuracao-list' py_vars.colaborador_id %}">
+            <div class="card-header">
+              <div class="d-md-flex justify-content-between">
+                <div class="card-title">Configurações</div>
+                <div>
+                  <button class="btn btn-icon" data-bs-toggle="modal" data-bs-target="#modal-configuracao"><i class="fas fa-pen"></i></button>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-4 mb-3">
+                  <strong>Código</strong>
+                  <p class="display_codigo"></p>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <strong>Pasta Ctb Fis</strong>
+                  <p class="display_pasta_ctb_fis"></p>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <strong>Cadastro IPM</strong>
+                  <p class="display_cadastro_ipm"></p>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <strong>Protocolo Tomador</strong>
+                  <p class="display_protocolo_tomador"></p>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <strong>Protocolo Prestador</strong>
+                  <p class="display_protocolo_prestador"></p>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <strong>NFS-e Tomadas</strong>
+                  <p class="display_nfse_tomadas"></p>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <strong>SAT Emitidas</strong>
+                  <p class="display_sat_emitidas"></p>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <strong>SAT Recebidas</strong>
+                  <p class="display_sat_recebidas"></p>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <strong>SAT NCE</strong>
+                  <p class="display_sat_nfce"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <!-- Colaborador -->
+  <div class="modal fade" id="modal-colaborador" tabindex="-1" aria-labelledby="modal-colaborador" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form id="form-colaborador" action="{% url 'colaborador_api:colaborador-detail' py_vars.colaborador_id %}" data-url="{% url 'colaborador_api:colaborador-dados-principais' py_vars.colaborador_id %}" data-method="patch" data-async="true" autocomplete="off" novalidate>
+          <div class="modal-header">
+            <h5 class="modal-title">Colaborador</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            {% csrf_token %}
+            <input type="hidden" name="colaborador_id" value="{{ py_vars.colaborador_id }}" />
+            {{ forms.colaborador|crispy }}
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary"><i class="fa fa-save me-2"></i>Salvar Colaborador</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Configurações -->
+  <div class="modal fade" id="modal-configuracao" tabindex="-1" aria-labelledby="modal-configuracao" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form id="form-configuracao" action="{% url 'colaborador_api:colaborador-configuracao-list' py_vars.colaborador_id %}" data-url="{% url 'colaborador_api:colaborador-configuracao-list' py_vars.colaborador_id %}" method="post" data-async="true" autocomplete="off" novalidate>
+          <div class="modal-header">
+            <h5 class="modal-title">Configurações</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            {% csrf_token %}
+            <input type="hidden" name="colaborador_id" value="{{ py_vars.colaborador_id }}" />
+            {{ forms.configuracao|crispy }}
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary"><i class="fa fa-save me-2"></i>Salvar Configurações</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

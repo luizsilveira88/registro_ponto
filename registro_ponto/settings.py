@@ -6,32 +6,27 @@ from collections import OrderedDict
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-IS_HEROKU_APP = "DYNO" in os.environ and not "CI" in os.environ
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 APP_PORT = os.environ.get("APP_PORT", 8000)
-# SECURITY WARNING: don't run with debug turned on in production!
-if not IS_HEROKU_APP:
-    DEBUG = True
+DEBUG = os.environ.get("DEBUG", "False").lower() in ("true", "1", "t")
 
 
 # On Heroku, it's safe to use a wildcard for `ALLOWED_HOSTS``, since the Heroku router performs
 # validation of the Host header in the incoming HTTP request. On other platforms you may need to
 # list the expected hostnames explicitly in production to prevent HTTP Host header attacks. See:
 # https://docs.djangoproject.com/en/5.1/ref/settings/#std-setting-ALLOWED_HOSTS
-if IS_HEROKU_APP:
-    ALLOWED_HOSTS = ["*"]
-else:
-    ALLOWED_HOSTS = [".localhost", "127.0.0.1", "[::1]", "0.0.0.0"]
-    CORS_ORIGIN_WHITELIST = [
-        f"http://localhost:{APP_PORT}",
-    ]
-    CSRF_TRUSTED_ORIGINS = [
-        f"http://localhost:{APP_PORT}",
-    ]
+ALLOWED_HOSTS = ["*"]
+
+CORS_ORIGIN_WHITELIST = [
+    f"http://localhost:{APP_PORT}",
+]
+CSRF_TRUSTED_ORIGINS = [
+    f"http://localhost:{APP_PORT}",
+]
 
 # Application definition
 
@@ -58,6 +53,7 @@ INTERNAL_APPS = [
     "apps.colaboradores",
     "apps.credenciais",
     "apps.public",
+    "apps.pontos",
 ]
 
 INSTALLED_APPS = THIRD_PARTY_APPS + DJANGO_APPS + INTERNAL_APPS
@@ -87,8 +83,6 @@ LOGIN_REDIRECT_URL = "internal_home"
 PUBLIC_URL_NAMES = [
     # Public
     "public_home",
-    "public_web:orcamento",
-    "public_web:orcamento_save",
     # Autenticação
     "auth_web:login",
     "auth_api:auth-login",
@@ -197,7 +191,7 @@ WSGI_APPLICATION = "registro_ponto.wsgi.application"
 # REST_FRAMEWORK
 DEFAULT_RENDERER_CLASSES = ("rest_framework.renderers.JSONRenderer",)
 
-if not IS_HEROKU_APP:
+if not DEBUG:
     DEFAULT_RENDERER_CLASSES = DEFAULT_RENDERER_CLASSES + (
         "rest_framework.renderers.BrowsableAPIRenderer",
     )
@@ -213,23 +207,14 @@ REST_FRAMEWORK = {
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-if IS_HEROKU_APP:
-    DATABASES = {
-        "default": dj_database_url.config(
-            env="DATABASE_URL",
-            conn_max_age=600,
-            conn_health_checks=True,
-            ssl_require=True,
-        ),
-    }
-else:
-    DATABASES = {
-        "default": dj_database_url.config(
-            env="DATABASE_URL",
-            conn_max_age=600,
-            conn_health_checks=True,
-        ),
-    }
+
+DATABASES = {
+    "default": dj_database_url.config(
+        env="DATABASE_URL",
+        conn_max_age=600,
+        conn_health_checks=True,
+    ),
+}
 
 
 # Password validation

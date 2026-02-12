@@ -5,7 +5,7 @@ urlpatterns = [
         "",
         include(
             "apps.colaboradores.urls.api",
-            namespace="usuario_api",
+            namespace="colaborador_api",
         ),
     ),
     path(
@@ -13,6 +13,13 @@ urlpatterns = [
         include(
             "apps.credenciais.urls.api",
             namespace="auth_api",
+        ),
+    ),
+    path(
+        "",
+        include(
+            "apps.pontos.urls.api",
+            namespace="ponto_api",
         ),
     ),
 ]

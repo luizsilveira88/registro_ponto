@@ -28,6 +28,12 @@ def menu_options(request):
             "icon": "fas fa-users",
             "permission": ["colaboradores.view_colaborador"],
         },
+        "pontos": {
+            "label": "Pontos",
+            "url": "ponto_web:ponto-list",
+            "icon": "fas fa-clock",
+            "permission": ["pontos.view_ponto"],
+        },
         "framework": {
             "label": "Framework",
             "url": "admin:index",
