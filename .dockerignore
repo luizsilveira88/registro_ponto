@@ -1,0 +1,33 @@
+# Básico
+.git
+.gitignore
+*.pyc
+*.pyo
+__pycache__/
+*.db
+*.sqlite3
+
+# Ambiente virtual
+.env
+.venv/
+env/
+venv/
+
+# Node.js (se usar frontend juntos)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Outros temporários
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.log
+*.swp
+*.swo
+*.bak
+
+# Arquivos de Docker que não precisam ir pro build
+docker-compose.override.yml
+docker-compose.dev.yml

@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="registro_ponto é um sistema inovador para rastreamento e compra automática de produtos em colaboradores farmacêuticos. Simplifique o abastecimento com pedidos pré-definidos, garanta a disponibilidade dos itens e otimize sua gestão de estoque em tempo real. A solução ideal para manter sua farmácia sempre preparada!" />
+    <meta name="keywords" content="registro_ponto, rastreamento farmacêutico, compra automática, colaboradores farmacêuticos, gestão de estoque, abastecimento de farmácia, sistema de compras, produtos farmacêuticos, automação de pedidos, gestão de farmácia" />
+    <title>registro_ponto</title>
+    <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
+    <link rel="icon" href="{% static 'core/img/logo/favicon.ico' %}" type="image/x-icon" />
+    <!-- Fonts and icons -->
+    <script src="{% static 'core/libs/webfont/webfont.min.js' %}"></script>
+    <script>
+      WebFont.load({
+        google: { families: ['Public Sans:300,400,500,600,700'] },
+        custom: {
+          families: ['Font Awesome 5 Solid', 'Font Awesome 5 Regular', 'Font Awesome 5 Brands', 'simple-line-icons'],
+          urls: ["{% static 'core/css/fonts.min.css' %}"]
+        },
+        active: function () {
+          sessionStorage.fonts = true
+        }
+      })
+    </script>
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="{% static 'core/libs/bootstrap/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'credenciais/css/auth_login.css' %}" />
+  </head>
+
+  <body>
+    <div class="limiter">
+      <div class="container-login bg-fornecedor">
+        <div class="wrap-login shadow-lg">
+          <form method="post" action="{% url 'auth_api:auth-login' %}" data-async="true" class="login-form" novalidate>
+            {% csrf_token %}
+            <div class="px-1 mb-5">
+              <img src="{% static 'core/img/logo/registro_ponto_border.svg' %}" class="w-100" alt="registro_ponto" />
+            </div>
+            <div class="mb-4">
+              <input type="text" class="form-control" name="login" id="login" placeholder="Nome de Usuário" required />
+              <div class="invalid-feedback">Este campo é obrigatório</div>
+            </div>
+            <div class="mb-4 position-relative">
+              <input type="password" class="form-control" name="password" id="password" placeholder="Senha" />
+              <button type="button" class="btn text-reset btn-show-pass" id="togglePassword"><i class="fa fa-eye"></i></button>
+            </div>
+            <div id="feedback" style="display: none;">
+              <div class="callout callout-danger"></div>
+            </div>
+            <div>
+              <button type="submit" class="btn btn-lg w-100 btn-primary" id="btn-login">Entrar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    {% if jsVars %}
+      {{ jsVars|json_script:'jsVars' }}
+      <script>
+        const jsVars = JSON.parse(document.getElementById('jsVars').textContent)
+      </script>
+    {% endif %}
+
+    <!-- Core JS Files -->
+    <script src="{% static 'core/libs/bootstrap/bootstrap.min.js' %}"></script>
+    <script src="{% static 'core/js/forms.min.js' %}"></script>
+    <script src="{% static 'credenciais/js/auth_login.js' %}"></script>
+  </body>
+</html>

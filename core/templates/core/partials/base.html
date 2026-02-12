@@ -1,0 +1,128 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="registro_ponto é um sistema inovador para rastreamento e compra automática de produtos em fornecedores farmacêuticos. Simplifique o abastecimento com pedidos pré-definidos, garanta a disponibilidade dos itens e otimize sua gestão de estoque em tempo real. A solução ideal para manter sua farmácia sempre preparada!" />
+    <meta name="keywords" content="registro_ponto, rastreamento farmacêutico, compra automática, fornecedores farmacêuticos, gestão de estoque, abastecimento de farmácia, sistema de compras, produtos farmacêuticos, automação de pedidos, gestão de farmácia" />
+    <title>registro_ponto</title>
+    <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
+    <link rel="icon" type="image/png" href="{% static 'core/img/logo/favicon-96x96.png' %}" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="{% static 'core/img/logo/favicon.svg' %}" />
+    <link rel="shortcut icon" href="{% static 'core/img/logo/favicon.ico' %}" />
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'core/img/logo/apple-touch-icon.png' %}" />
+    <meta name="apple-mobile-web-app-title" content="registro_ponto" />
+    <link rel="manifest" href="{% static 'core/img/logo/site.webmanifest' %}" />
+
+    <!-- Sentry Config on Frontend -->
+    {% if SENTRY_JS_URL %}
+      <script src="{{ SENTRY_JS_URL }}" crossorigin="anonymous"></script>
+
+      <script>
+        Sentry.onLoad(function () {
+          Sentry.init({
+            integrations: [Sentry.replayIntegration()],
+            replaysSessionSampleRate: 0.1,
+            replaysOnErrorSampleRate: 1.0
+          })
+        })
+      </script>
+    {% endif %}
+
+    <!-- Fonts and icons -->
+    <script src="{% static 'core/libs/webfont/webfont.min.js' %}"></script>
+    <script>
+      WebFont.load({
+        google: { families: ['Public Sans:300,400,500,600,700'] },
+        custom: {
+          families: ['Font Awesome 5 Solid', 'Font Awesome 5 Regular', 'Font Awesome 5 Brands', 'simple-line-icons'],
+          urls: ["{% static 'core/css/fonts.min.css' %}"]
+        },
+        active: function () {
+          sessionStorage.fonts = true
+        }
+      })
+    </script>
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="{% static 'core/libs/bootstrap/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'core/css/libs.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'core/css/template.min.css' %}" />
+
+    <!-- Loading.io -->
+    <link rel="stylesheet" href="{% static 'core/libs/loading.io/loading.io.min.css' %}" />
+
+    <!-- Notyf -->
+    <link href="{% static 'core/libs/notyf/notyf.min.css' %}" rel="stylesheet" type="text/css" />
+
+    {% if css %}
+      <!-- Custom CSS -->
+      {% for css_file in css %}
+        <link rel="stylesheet" href="{% static css_file %}" />
+      {% endfor %}
+    {% endif %}
+  </head>
+  <body>
+    <div class="wrapper {% if request.session.config.sidebar_minimize == 1 %} sidebar_minimize {% endif %}">
+      {% include 'core/partials/sidebar.html' %}
+      <div class="main-panel">
+        {% include 'core/partials/header.html' %}
+        {% block content %}
+
+        {% endblock %}
+        {% include 'core/partials/footer.html' %}
+      </div>
+    </div>
+    <!-- Core JS Files -->
+    <script src="{% static 'core/libs/jquery/jquery-3.7.1.min.js' %}"></script>
+    <script src="{% static 'core/libs/popper/popper.min.js' %}"></script>
+    <script src="{% static 'core/libs/bootstrap/bootstrap.min.js' %}"></script>
+
+    <!-- Notyf -->
+    <script src="{% static 'core/libs/notyf/notyf.min.js' %}"></script>
+    <script src="{% static 'core/libs/notyf/notyf_defaults.js' %}"></script>
+
+    <!-- jQuery Scrollbar -->
+    <script src="{% static 'core/libs/jquery-scrollbar/jquery.scrollbar.min.js' %}"></script>
+
+    <!-- Sweet Alert -->
+    <script src="{% static 'core/libs/sweetalert/sweetalert.min.js' %}"></script>
+
+    <!-- Template -->
+    <script src="{% static 'core/js/template.min.js' %}"></script>
+    <script src="{% static 'core/js/forms.js' %}"></script>
+    <script src="{% static 'core/js/utils.min.js' %}"></script>
+
+    {% if jsVars %}
+      {{ jsVars|json_script:'jsVars' }}
+      <script>
+        const jsVars = JSON.parse(document.getElementById('jsVars').textContent)
+      </script>
+    {% endif %}
+
+    <!-- Plugin -->
+    {% for plugin_name, plugin in plugins.items %}
+      {% if plugin.css %}
+        {% for css_file in plugin.css %}
+          <link rel="stylesheet" href="{% static css_file %}" />
+        {% endfor %}
+      {% endif %}
+      {% if plugin.js %}
+        {% for js_file in plugin.js %}
+          <script src="{% static js_file %}"></script>
+        {% endfor %}
+      {% endif %}
+    {% endfor %}
+
+    {% if js %}
+      <!-- Custom JS -->
+      {% for js_file in js %}
+        <script src="{% static js_file %}"></script>
+      {% endfor %}
+    {% endif %}
+
+    {% block js %}
+
+    {% endblock %}
+  </body>
+</html>

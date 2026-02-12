@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   version="1.1"
+   width="145"
+   height="145"
+   id="svg19"
+   sodipodi:docname="favicon.svg"
+   inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <defs
+     id="defs21" />
+  <svg
+     viewBox="0 0 144.99999 145"
+     width="145"
+     height="145"
+     role="img"
+     aria-label="registro_ponto logo"
+     version="1.1"
+     id="SvgjsSvg1039"
+     sodipodi:docname="favicon.svg"
+     xml:space="preserve"
+     inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
+     style="fill:#000000"><sodipodi:namedview
+       id="SvgjsSodipodi:namedview1038"
+       pagecolor="#ffffff"
+       bordercolor="#000000"
+       borderopacity="0.25"
+       inkscape:showpageshadow="2"
+       inkscape:pageopacity="0.0"
+       inkscape:pagecheckerboard="0"
+       inkscape:deskcolor="#d1d1d1"
+       showgrid="false"
+       showguides="true"
+       inkscape:zoom="8.0000002"
+       inkscape:cx="108.625"
+       inkscape:cy="91.374998"
+       inkscape:window-width="3840"
+       inkscape:window-height="2054"
+       inkscape:window-x="-11"
+       inkscape:window-y="-11"
+       inkscape:window-maximized="1"
+       inkscape:current-layer="svg19" /><defs
+       id="SvgjsDefs1037"><linearGradient
+         id="SvgjsLinearGradient1033"
+         x1="0"
+         x2="1"
+         y1="0"
+         y2="1"><stop
+           offset="0"
+           stop-color="#3fb0df"
+           id="SvgjsStop1032" /><stop
+           offset="1"
+           stop-color="#1a9bd8"
+           id="SvgjsStop1031" /></linearGradient><style
+         id="SvgjsStyle1030">
+      /* font-family fallback — substitute with the exact font if you have it */
+      .word { font-family: &quot;Helvetica Neue&quot;, Arial, Helvetica, sans-serif; font-weight: 700; font-size: 120px; fill: #2f3940; letter-spacing: -4px; }
+      .letter-y { font-family: &quot;Helvetica Neue&quot;, Arial, Helvetica, sans-serif; font-weight: 700; font-size: 120px; fill: #2f3940; }
+    </style><linearGradient
+         inkscape:collect="always"
+         xlink:href="#linearGradient2774"
+         id="SvgjsLinearGradient1029"
+         x1="-327.38687"
+         y1="108.09142"
+         x2="-51.675694"
+         y2="108.09142"
+         gradientUnits="userSpaceOnUse"
+         gradientTransform="matrix(0.95308362,0,0,0.95308362,288.03117,-22.315088)" /></defs><!-- "Conne" left part --><!-- Stylized "X" made from two chevron-like shapes (top-right and bottom-left),
+       with a gradient similar to the original logo --><!-- "y" right part --><!-- optional small accessibility title --><title
+       id="SvgjsTitle1028">registro_ponto logo (approximate SVG)</title><metadata
+       id="SvgjsMetadata1027"><rdf:rdf><cc:work
+           rdf:about=""><dc:title>registro_ponto logo (approximate SVG)</dc:title></cc:work></rdf:rdf></metadata><g
+       id="SvgjsG1026"
+       transform="matrix(0.77318717,0,0,0.77318717,56.079448,1.5797581)"
+       style="fill:#000000"><path
+         id="SvgjsPath1025"
+         style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.563728"
+         d="m -25.649047,35.749682 c 0,0 -75.094663,67.860668 -34.928081,101.272558 40.166575,33.41189 92.815981,-21.17317 105.265569,-32.74035 C 57.138029,92.714708 112.40576,38.237816 112.40576,38.237816 H 76.870244 c 0,0 -36.348065,38.394131 -52.973455,53.922036 -16.6253996,15.527888 -53.10338,42.025728 -71.591086,23.297918 -18.487697,-18.727808 29.076689,-79.714306 29.076689,-79.714306 z m 13.786405,0.0228 42.06,45.437806 C 35.917765,75.561424 42.285269,69.066682 48.54294,62.640804 L 23.672881,35.772478 Z m 81.510218,49.270631 c -7.903351,7.704623 -14.225421,13.814959 -18.76209,18.121667 l 28.450099,30.73486 H 114.8711 Z"
+         sodipodi:nodetypes="cssccsscccccccccccc" /></g></svg>
+  <style
+     id="style17">@media (prefers-color-scheme: light) { :root { filter: none; } }
+@media (prefers-color-scheme: dark) { :root { filter: none; } }
+</style>
+</svg>

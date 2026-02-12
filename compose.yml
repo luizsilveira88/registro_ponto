@@ -1,0 +1,47 @@
+services:
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+    ports:
+      - "25432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - .env
+
+  web:
+    build: .
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+    environment:
+      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY}
+      DEBUG: ${DEBUG}
+      DJANGO_LOGLEVEL: ${DJANGO_LOGLEVEL}
+      DATABASE_URL: postgres://${DATABASE_USERNAME}:${DATABASE_PASSWORD}@db:5432/${DATABASE_NAME}
+    command: >
+      sh -c "python -m debugpy --listen 0.0.0.0:25678 manage.py runserver 0.0.0.0:80"
+    ports:
+      - "25678:25678"
+    deploy:
+      replicas: 1 
+    env_file:
+      - .env
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "${APP_PORT}:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - web
+    env_file:
+      - .env
+
+volumes:
+  postgres_data:

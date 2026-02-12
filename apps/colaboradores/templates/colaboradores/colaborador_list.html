@@ -1,0 +1,125 @@
+{% extends 'core/partials/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+  <div class="container">
+    <div class="page-inner">
+      <div class="page-header">
+        <div>
+          <h3 class="fw-bold mb-1">Colaboradores</h3>
+          <p class="text-muted mb-1 small">Relação de colaboradores cadastrados no sistema.</p>
+          <ul class="breadcrumbs mb-5">
+            <li class="nav-home">
+              <a href="{% url 'internal_home' %}"><i class="icon-home me-2"></i></a>
+            </li>
+            <li class="separator">
+              <i class="icon-arrow-right"></i>
+            </li>
+            <li class="nav-item">
+              <span>Lista de colaboradores</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="py-3 ms-xxl-auto">
+          <button class="btn btn-primary btn-add" data-bs-toggle="modal" data-bs-target="#modal-colaborador"><i class="fa fa-plus me-2"></i>Novo Colaborador</button>
+        </div>
+      </div>
+
+      <!-- Tabela de conteúdo -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">
+                <div class="d-md-flex justify-content-between">
+                  <div class="mb-2 mb-md-0">Relação de colaboradores</div>
+                  <div>
+                    <input type="text" class="tabulator-search form-control" placeholder="Pesquisar..." data-target="#table_colaborador" autocomplete="off" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div id="table_colaborador" data-list="{% url 'colaborador_api:colaborador-list' %}" data-detail="{% url 'colaborador_web:colaborador-detail' 0 %}" class=""></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <!-- Colaborador -->
+  <div class="modal fade" id="modal-colaborador-1" tabindex="-1" aria-labelledby="modal-colaborador" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form action="{% url 'colaborador_api:colaborador-list' %}" method="post" data-async="true" autocomplete="off" novalidate>
+          <div class="modal-header">
+            <h5 class="modal-title">Colaborador</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            {% csrf_token %}
+            {{ forms.colaborador|crispy }}
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary"><i class="fa fa-save me-2"></i>Salvar Colaborador</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Wizard -->
+  <div id="modal-colaborador" class="modal fade" tabindex="-1" aria-labelledby="modal-colaborador" aria-modal="true" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-lg modal-fullscreen-sm-down">
+      <div class="modal-content">
+        <form action="{% url 'colaborador_api:colaborador-list' %}" method="post" data-async="true" autocomplete="off" novalidate>
+          <div class="modal-header modal-colored-header bg-primary">
+            <h4 class="modal-title" id="primary-header-modalLabel">Adicionar Colaborador</h4>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            {% csrf_token %}
+            <ul class="nav nav-pills nav-justified form-wizard-header-modal mb-3">
+              <li class="nav-item" data-target-form="#accountForm">
+                <a href="#pane-dados-principais" id="tab-dados-principais" data-bs-toggle="tab" data-toggle="tab" class="nav-link main-tab rounded-0 py-2 active"><span class="d-none d-sm-inline">1. Dados Principais</span></a>
+              </li>
+              <li class="nav-item" data-target-form="#profileForm">
+                <a href="#pane-biometria" id="tab-biometria" data-bs-toggle="tab" data-toggle="tab" class="nav-link rounded-0 py-2 disabled"><span class="d-none d-sm-inline">2. Biometria</span></a>
+              </li>
+            </ul>
+
+            <div class="tab-content">
+              <div class="tab-pane active" id="pane-dados-principais">
+                {{ forms.colaborador|crispy }}
+                <ul class="pager wizard mb-0 list-inline d-flex justify-content-end">
+                  <li class="next list-inline-item">
+                    <button type="button" class="btn btn-primary" data-next-tab-with-validate="#pane-biometria">Próximo<i class="fa fa-arrow-right ms-2"></i></button>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="tab-pane fade" id="pane-biometria">
+                <div class="row mb-3">
+                  <video autoplay playsinline muted hidden id="video"></video>
+                  <canvas width="640" height="480" id="canvas"></canvas>
+                </div>
+
+                <ul class="pager wizard mb-0 list-inline d-flex justify-content-between">
+                  <li class="next list-inline-item">
+                    <button type="button" class="btn btn-primary" data-previous-tab="#pane-tpa"><i class="mdi mdi-arrow-left ms-1"></i>Anterior</button>
+                  </li>
+                  <li class="next list-inline-item">
+                    <button type="submit" class="btn btn-primary waves-effect waves-light">Salvar</button>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

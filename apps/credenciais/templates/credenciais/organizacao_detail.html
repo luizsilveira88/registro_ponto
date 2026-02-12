@@ -1,0 +1,141 @@
+{% extends 'core/partials/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+  <div class="container">
+    <div class="page-inner">
+      <div class="page-header">
+        <div>
+          <div class="fw-bold d-flex align-items-center">
+            <a href="{% url 'usuarios:colaborador:index' %}" class="text-dark me-2"><i class="fas fa-arrow-left"></i></a>
+            <h4 class="fw-bold mb-0"><span id="display_nome"></span></h4>
+          </div>
+
+          <ul class="breadcrumbs mb-5">
+            <li class="nav-home">
+              <a href="{% url 'usuarios:index:index' %}"><i class="icon-home me-2"></i></a>
+            </li>
+            <li class="separator">
+              <i class="icon-arrow-right"></i>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'usuarios:colaborador:index' %}">Relação de usuarios</a>
+            </li>
+            <li class="separator">
+              <i class="icon-arrow-right"></i>
+            </li>
+            <li class="nav-item">
+              <span>Dados do colaborador</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="row">
+        <!-- Coluna Esquerda -->
+        <div class="col-md-7">
+          <!-- Dados principais -->
+          <div class="card">
+            <div class="card-header">
+              <div class="d-md-flex justify-content-between">
+                <div class="card-title">Dados Principais</div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="mb-3">
+                CNPJ: <span id="display_cnpj"></span>
+              </div>
+              <div class="mb-3">
+                Rede: <span id="display_rede-nome"></span>
+              </div>
+              <div class="mb-3">
+                Whatsapp: <span id="display_whatsapp"></span>
+              </div>
+              <div class="mb-3">
+                Estado: <span id="display_estado-sigla"></span>
+              </div>
+              <div class="mb-3">
+                E-mail: <span id="display_email"></span>
+              </div>
+              <div class="mb-3">
+                Observacao: <span id="display_observacao"></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Grupo Economico -->
+          <div class="card" id="card_grupo-economico">
+            <div class="card-header">
+              <div class="d-md-flex justify-content-between">
+                <div class="card-title">Grupo Econômico</div>
+              </div>
+            </div>
+            <div class="card-body"></div>
+          </div>
+        </div>
+
+        <!-- Coluna Direita -->
+        <div class="col-md-5">
+          <!-- Promoções -->
+          <div class="card">
+            <div class="card-header">
+              <div class="d-md-flex justify-content-between">
+                <div class="card-title">Promoções</div>
+                <div>
+                  <button class="btn btn-icon" id="btn-codigo-promocional">
+                    <div data-bs-toggle="tooltip" data-bs-placement="left" title="Gerar Voucher (Código Promocional)">
+                      <i class="fas fa-ticket-alt me-2"></i>
+                    </div>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div id="promocoes"></div>
+            </div>
+          </div>
+
+          <!-- Permissões -->
+          <div class="card">
+            <div class="card-header">
+              <div class="d-md-flex justify-content-between">
+                <div class="card-title">Permissões</div>
+                <div>
+                  <button class="btn btn-icon" id="btn-edit-permissoes">
+                    <div data-bs-toggle="tooltip" data-bs-placement="left" title="Editar permissoes">
+                      <i class="fas fa-edit"></i>
+                    </div>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div id="permissoes"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal - Permissões -->
+  <div class="modal fade" id="modal-permissoes" tabindex="-1" aria-labelledby="modal-permissoes" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form autocomplete="off" method="post" action="{% url 'usuarios:colaborador:save_permissions' %}" novalidate data-async="true">
+          <div class="modal-header">
+            <h5 class="modal-title">Permissões</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            {% csrf_token %}
+            {{ forms.colaborador_permissao|crispy }}
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" id="btn-save-permissoes"><i class="fas fa-save me-2"></i>Salvar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

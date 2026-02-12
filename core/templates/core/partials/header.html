@@ -1,0 +1,47 @@
+{% load static %}
+<div class="main-header">
+  <div class="main-header-logo">
+    <!-- Logo Header -->
+    <div class="logo-header" data-background-color="white">
+      <a href="{% url 'internal_home' %}" class="logo"><img src="{% static 'core/img/logo/registro_ponto_white.svg' %}" alt="navbar brand" class="navbar-brand" height="32" /></a>
+      <div class="nav-toggle">
+        <button class="btn btn-toggle toggle-sidebar"><i class="fas fa-bars"></i></button>
+        <button class="btn btn-toggle sidenav-toggler"><i class="fas fa-bars"></i></button>
+      </div>
+      <button class="topbar-toggler more"><i class="gg-more-vertical-alt"></i></button>
+    </div>
+    <!-- End Logo Header -->
+  </div>
+  <!-- Navbar Header -->
+  <nav class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom" data-background-color="white">
+    <div class="container-fluid">
+      <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
+        <li class="nav-item topbar-user dropdown">
+          <a class="dropdown-toggle profile-pic text-center text-lg-end" data-bs-toggle="dropdown" href="#" aria-expanded="false">
+            <div class="profile-username">
+              <div>{{ request.session.usuario.nome }}</div>
+              <div class="small fw-bold">{{ request.session.usuario.organizacao.nome }}</div>
+            </div>
+          </a>
+          <ul class="dropdown-menu dropdown-user animated fadeIn py-3 px-2">
+            <div class="dropdown-user-scroll scrollbar-outer">
+              <li>
+                <div class="user-box">
+                  <div class="u-text">
+                    <h4>{{ request.session.usuario.nome }}</h4>
+                    <p class="text-muted">{{ request.session.usuario.email }}</p>
+                  </div>
+                </div>
+              </li>
+              <li class="dropdown-divider"></li>
+              <li>
+                <button class="dropdown-item px-3" data-url="{% url 'auth_web:logout' %}" id="btn-logout"><i class="fas fa-sign-out-alt me-2"></i>Sair</button>
+              </li>
+            </div>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <!-- End Navbar -->
+</div>

@@ -1,0 +1,26 @@
+{
+	"name": "Django (Docker Compose)",
+	"dockerComposeFile": [
+		"../compose.yml"
+	],
+	"service": "app",
+	"workspaceFolder": "/app",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-python.python",
+				"ms-python.vscode-pylance",
+				"ms-python.black-formatter",
+				"ms-azuretools.vscode-docker"
+			],
+			"settings": {
+				"python.defaultInterpreterPath": "/usr/local/bin/python",
+				"python.analysis.typeCheckingMode": "basic",
+				"python.analysis.autoImportCompletions": true,
+				"editor.formatOnSave": true,
+				"editor.defaultFormatter": "ms-python.black-formatter",
+				"python.formatting.provider": "black"
+			}
+		}
+	}
+}

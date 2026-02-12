@@ -1,0 +1,14 @@
+{% extends 'core/partials/base.html' %}
+{% load static %}
+{% block content %}
+  <div class="container">
+    <div class="page-inner">
+      <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2">
+        <div>
+          <h3 class="fw-bold mb-3">{{ request.session.usuario.nome }}</h3>
+          <p class="text-muted mb-1 small">Bem-vindo ao registro_ponto.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

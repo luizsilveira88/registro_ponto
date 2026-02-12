@@ -1,0 +1,243 @@
+{% extends 'public/public_base.html' %}
+{% load static %}
+    
+{% block header %}
+  <div class="carousel-header">
+    <div id="carouselId" class="carousel slide" data-bs-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-bs-target="#carouselId" data-bs-slide-to="0" class="active"></li>
+      </ol>
+      <div class="carousel-inner" role="listbox">
+        <div class="carousel-item active">
+          <img src="{% static 'public/img/carousel.webp' %}" class="img-fluid w-100" alt="Image" />
+          <div class="carousel-caption-2">
+            <div class="carousel-caption-2-content" style="max-width: 900px;">
+              <h1 class="display-4 text-capitalize fw-bold text-white mb-4 fadeInRight animated" data-animation="fadeInRight" data-delay=".5s" style="animation-delay: .5s;">Ajudamos você a acabar com a digitação de lançamentos contábeis</h1>
+              <p class="mb-5 fs-5 text-white fadeInRight animated" data-animation="fadeInRight" data-delay=".7s" style="animation-delay: .7s;">
+                O registro_ponto ajuda você eliminar até 100% da digitação manual de lançamentos
+                contábeis, mantendo seus fechamentos contábeis em dia e aumentando sua lucratividade
+              </p>
+              <div class="carousel-caption-2-content-btn fadeInRight animated" data-animation="fadeInRight" data-delay="1s" style="animation-delay: 1s;">
+                <a class="btn btn-primary rounded-pill flex-shrink-0 py-3 px-5 me-2" href="{% url "public_web:orcamento" %}">Solicite um orçamento</a>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>  
+  </div>
+{% endblock header %}
+        
+{% block content %}
+    <div class="container-fluid feature bg-light py-5">
+      <div class="container py-5">
+        <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
+          <h4 class="text-uppercase text-primary">Vantagens</h4>
+          <h1 class="display-3 mb-3">Revolucionando a forma como você adquire seus produtos farmacêuticos</h1>
+        </div>
+        <div class="row g-4">
+          <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.2s">
+            <div class="feature-item p-4">
+              <div class="feature-icon mb-3">
+                <i class="fas fa-hourglass-half text-white fa-3x"></i>
+              </div>
+              <a href="#" class="h4 mb-3">Economize Tempo</a>
+              <p class="mb-3">Esqueça as buscas intermináveis por preços e condições. Nós fazemos isso por você.</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.4s">
+            <div class="feature-item p-4">
+              <div class="feature-icon mb-3">
+                <i class="fas fa-money-bill text-white fa-3x"></i>
+              </div>
+              <a href="#" class="h4 mb-3">Economize Dinheiro</a>
+              <p class="mb-3">Comparamos os preços dos principais fornecedores, visando sempre as melhores ofertas.</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.6s">
+            <div class="feature-item p-4">
+              <div class="feature-icon mb-3">
+                <i class="fas fa-network-wired text-white fa-3x"></i>
+              </div>
+              <a href="#" class="h4 mb-3">Simplifique Processos</a>
+              <p class="mb-3">Envie pedidos diretamente pela nossa plataforma. Tudo de forma ágil e segura.</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.8s">
+            <div class="feature-item p-4">
+              <div class="feature-icon mb-3">
+                <i class="fab fa-searchengin text-white fa-3x"></i>
+              </div>
+
+              <a href="#" class="h4 mb-3">Rastreie Produtos</a>
+              <p class="mb-3">Rastreamos os produtos faltantes definidos por você e te avisamos assim que estiverem disponíveis.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid about overflow-hidden py-5">
+      <div class="container py-5">
+        <div class="row g-5">
+          <div class="col-xl-6 wow fadeInLeft" data-wow-delay="0.2s">
+            <div class="about-img rounded h-100">
+              <img src="{% static 'public/img/about.jpg' %}" class="img-fluid rounded h-100 w-100" style="object-fit: cover;" alt="" />
+              <div class="about-exp">
+                <span>Rastreamento</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-6 wow fadeInRight" data-wow-delay="0.2s">
+            <div class="about-item">
+              <h4 class="text-primary text-uppercase">Rastreamento</h4>
+              <h1 class="display-3 mb-3">Tecnologia de Ponta com IA.</h1>
+              <p class="mb-4">Nossa aplicação é alimentada por tecnologias de ponta em Inteligência Artificial e aprendizado de máquina. Isso significa que, quanto mais você usa a plataforma, mais ela aprende sobre as necessidades específicas da sua farmácia, tornando as buscas e rastreamentos ainda mais eficientes ao longo do tempo.</p>
+              <div class="bg-light rounded p-4 mb-4">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="d-flex">
+                      <div class="pe-4">
+                        <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                          <i class="fab fa-searchengin text-white fa-2x"></i>
+                        </div>
+                      </div>
+                      <div class="">
+                        <a href="#" class="h4 d-inline-block mb-3">Busca Contínua Automatizada</a>
+                        <p class="mb-0">Se um medicamento ou produto não estiver disponível no momento da sua pesquisa, nossa plataforma utiliza algoritmos avançados de Inteligência Artificial para realizar uma busca contínua entre os fornecedores parceiros.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="bg-light rounded p-4 mb-4">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="d-flex">
+                      <div class="pe-4">
+                        <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                          <i class="fas fa-comments text-white fa-2x"></i>
+                        </div>
+                      </div>
+                      <div class="">
+                        <a href="#" class="h4 d-inline-block mb-3">Notificações em Tempo Real</a>
+                        <p class="mb-0">Assim que o produto estiver disponível em algum fornecedor, você recebe uma notificação imediata, permitindo que faça o pedido sem atrasos.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="bg-light rounded p-4 mb-4">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="d-flex">
+                      <div class="pe-4">
+                        <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                          <i class="fas fa-list-alt text-white fa-2x"></i>
+                        </div>
+                      </div>
+                      <div class="">
+                        <a href="#" class="h4 d-inline-block mb-3">Lista de Monitoramento Personaliza</a>
+                        <p class="mb-0">Adicione produtos à sua lista de rastreamento e deixe que o registro_ponto cuide do restante. Nossa plataforma monitora a disponibilidade e atualiza você constantemente.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <a href="{% url "public_web:orcamento" %}" class="btn btn-primary rounded-pill py-3 px-5">Solicite um orçamento agora</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid about overflow-hidden py-5">
+      <div class="container py-5">
+        <div class="row g-5">
+          <div class="col-xl-6 wow fadeInRight" data-wow-delay="0.2s">
+            <div class="about-item">
+              <h4 class="text-primary text-uppercase">Cotações</h4>
+              <h1 class="display-3 mb-3">Busca Automatizada</h1>
+              <p class="mb-4">O registro_ponto é o seu assistente pessoal para encontrar os melhores preços de medicamentos.</p>
+              <div class="bg-light rounded p-4 mb-4">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="d-flex">
+                      <div class="pe-4">
+                        <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                          <i class="far fa-file-alt text-white fa-2x"></i>
+                        </div>
+                      </div>
+                      <div class="">
+                        <a href="#" class="h4 d-inline-block mb-3">Cadastro Simples</a>
+                        <p class="mb-0">Inserir a lista de medicamentos que você deseja cotar.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="bg-light rounded p-4 mb-4">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="d-flex">
+                      <div class="pe-4">
+                        <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                          <i class="fas fa-search-dollar text-white fa-2x"></i>
+                        </div>
+                      </div>
+                      <div class="">
+                        <a href="#" class="h4 d-inline-block mb-3">Pesquisa Inteligente</a>
+                        <p class="mb-0">Utilize nossa ferramenta de busca para encontrar os medicamentos que precisa, com comparação automática de preços.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-light rounded p-4 mb-4">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="d-flex">
+                      <div class="pe-4">
+                        <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                          <i class="fas fa-upload text-white fa-2x"></i>
+                        </div>
+                      </div>
+                      <div class="">
+                        <a href="#" class="h4 d-inline-block mb-3">Pedido Fácil</a>
+                        <p class="mb-0">Selecione os produtos e fornecedores desejados e envie seu pedido diretamente pelo aplicativo.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-light rounded p-4 mb-4">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="d-flex">
+                      <div class="pe-4">
+                        <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                          <i class="fas fa-desktop text-white fa-2x"></i>
+                        </div>
+                      </div>
+                      <div class="">
+                        <a href="#" class="h4 d-inline-block mb-3">Acompanhamento em Tempo Real</a>
+                        <p class="mb-0">Monitore o status dos seus pedidos e receba atualizações instantâneas.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <a href="{% url "public_web:orcamento" %}" class="btn btn-primary rounded-pill py-3 px-5">Solicite um orçamento agora</a>
+            </div>
+          </div>
+          <div class="col-xl-6 wow fadeInLeft" data-wow-delay="0.2s">
+            <div class="about-img rounded h-100">
+              <img src="{% static 'public/img/cotacoes.jpg' %}" class="img-fluid rounded h-100 w-100" style="object-fit: cover;" alt="" />
+              <div class="about-exp">
+                <span>Cotações</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock content %}

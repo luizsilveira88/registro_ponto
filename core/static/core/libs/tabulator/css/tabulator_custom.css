@@ -1,0 +1,22 @@
+.tabulator {
+	font-size: 1rem;
+}
+
+.tabulator-header {
+	text-transform: uppercase;
+	border: none !important;
+	border-bottom: 1px solid #dee2e6 !important;
+}
+
+.tabulator-row-odd,
+ .tabulator-row-even {
+	background-color: transparent !important;
+}
+
+/* Footer */
+.tabulator .tabulator-footer {
+	background-color: transparent;
+}
+.tabulator .tabulator-footer label {
+	font-weight: normal !important;
+}
