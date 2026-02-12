@@ -17,6 +17,9 @@ from apps.colaboradores.exceptions.colaborador_exceptions import (
     CNPJServiceError,
 )
 
+# Services
+from ..services.biometria_services import create_biometria
+
 
 def list_colaboradors() -> list:
     return Colaborador.objects.all().order_by("nome")
@@ -29,22 +32,10 @@ def get_colaborador(pk: int) -> Colaborador:
         raise ColaboradorNotFound()
 
 
-def create_colaborador(data: dict, organizacao_id: int) -> Colaborador:
-    data = data.copy()
-    data["organizacao"] = organizacao_id
-
-    if "emails" in data and isinstance(data["emails"], str):
-        data["emails"] = [e.strip() for e in data["emails"].split(",") if e.strip()]
-
-    with transaction.atomic():
-        colaborador_serializer = ColaboradorSaveSerializer(data=data)
-        colaborador_serializer.is_valid(raise_exception=True)
-        colaborador = colaborador_serializer.save()
-
-        config_data = data.copy()
-        config_data["colaborador"] = colaborador.id
-
-    return colaborador
+def create_colaborador(data: dict) -> Colaborador:
+    serializer = ColaboradorSaveSerializer(data=data)
+    serializer.is_valid(raise_exception=True)
+    return serializer.save()
 
 
 def update_colaborador(pk: int, data: dict) -> Colaborador:
@@ -63,3 +54,11 @@ def update_colaborador(pk: int, data: dict) -> Colaborador:
 
 def dados_principais(pk: int) -> Colaborador:
     return get_colaborador(pk)
+
+
+def create_colaborador_with_biometria(data: dict, file) -> Colaborador:
+    with transaction.atomic():
+        colaborador = create_colaborador(data)
+        create_biometria(colaborador, file)
+
+    return colaborador

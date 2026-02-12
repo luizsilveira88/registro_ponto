@@ -5,11 +5,6 @@
 // Monitorar o evento de submit do formulário
 document.addEventListener("submit", handleFormSubmit);
 
-// Botão de busca de CNPJ
-const btnBuscarCnpj = document.querySelectorAll(".btn-search-cnpj").forEach(btn => {
-    btn.addEventListener("click", searchCnpj);
-});
-
 // ================================
 // Funções
 // ================================
@@ -19,18 +14,17 @@ const btnBuscarCnpj = document.querySelectorAll(".btn-search-cnpj").forEach(btn 
  * @param {Event} event Evento de submit
  * @returns {void}
  */
-function handleFormSubmit(event) {
+async function handleFormSubmit(event) {
     event.preventDefault();
     const form = event.target;
-    let formData = "";
 
     if (form.dataset.async) {
         if (form.checkValidity()) {
-            const formDataRaw = new FormData();
+            let formData = new FormData();
 
             // Percorrer os campos do formulário tratando os dados, se necessário
             form.querySelectorAll(
-                "input:not([type=checkbox]):not([type=radio]), select, textarea"
+                "input:not([type=checkbox]):not([type=radio]), select, textarea",
             ).forEach((input) => {
                 const name = input.name;
                 if (!name) return; // Pula se o campo não tem nome
@@ -40,63 +34,72 @@ function handleFormSubmit(event) {
                 if (input.tagName === "SELECT" && input.multiple) {
                     // Para campos select[multiple]
                     Array.from(input.selectedOptions).forEach((option) => {
-                        formDataRaw.append(name, option.value);
+                        formData.append(name, option.value);
                     });
                 } else if (format) {
                     switch (format) {
                         case "date":
                             const dateRaw = toDate(input.value);
-                            formDataRaw.append(name, dateRaw);
+                            formData.append(name, dateRaw);
                             break;
                         case "datetime":
                             const dateTimeRaw = toDateTime(input.value);
-                            formDataRaw.append(name, dateTimeRaw);
+                            formData.append(name, dateTimeRaw);
                             break;
                         default:
-                            formDataRaw.append(name, input.value);
+                            formData.append(name, input.value);
                     }
                 } else {
-                    formDataRaw.append(name, input.value);
+                    formData.append(name, input.value);
                 }
             });
 
             // Percorrer campos checkbox/radio
             form.querySelectorAll(
-                "input[type=checkbox], input[type=radio]"
+                "input[type=checkbox], input[type=radio]",
             ).forEach((checkbox) => {
                 const name = checkbox.name;
                 if (!name) return;
                 if (checkbox.checked) {
-                    formDataRaw.append(name, checkbox.value);
+                    formData.append(name, checkbox.value);
                 }
             });
 
-            if (typeof window.beforeSubmit === "function") {
-                formData = beforeSubmit(form, formDataRaw);
+            const hookBefore = form.dataset.hookBefore;
+            if (!hookBefore) {
+                if (typeof window.beforeSubmit === "function") {
+                    formData = await beforeSubmit(form, formData);
+                }
             } else {
-                formData = formDataRaw;
+                if (typeof window[hookBefore] === "function") {
+                    formData = await window[hookBefore](form, formData);
+                }
             }
+
+            // Preparar headers para o AJAX
+            const ajaxHeaders = {
+                "X-CSRFToken": formData.get("csrfmiddlewaretoken"),
+                Accept: "application/json",
+            };
 
             // Enviar os dados do formulário via AJAX
             fetch(form.action, {
                 method: (form.dataset.method ?? form.method).toUpperCase(),
-                headers: {
-                    'X-CSRFToken': getCookie('csrftoken'),
-                },
+                headers: ajaxHeaders,
                 body: formData,
             })
                 .then((response) => response.json())
                 .then((data) => {
-                    const callback = form.dataset.callback;
-                    if (!callback) {
+                    const hookAfter = form.dataset.hookAfter;
+                    if (!hookAfter) {
                         // Executar hook padrão
                         if (typeof window.afterSubmit === "function") {
                             afterSubmit(form, data);
                         }
                     } else {
-                        // Executar hook personalizado (callback)
-                        if (typeof window[callback] === "function") {
-                            window[callback](form, data);
+                        // Executar hook personalizado (hookAfter)
+                        if (typeof window[hookAfter] === "function") {
+                            window[hookAfter](form, data);
                         }
                     }
                 })
@@ -135,31 +138,6 @@ function populateForm(url, form, prefix) {
                 }
             });
         })
-}
-
-async function searchCnpj(event) {
-    const button = event.currentTarget;
-    const input = button.previousElementSibling;
-    const cnpj = input.value.replace(/\D/g, '');
-
-    const url = button.dataset.url;
-
-    const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': getCookie('csrftoken'),
-        },
-        body: JSON.stringify({ cnpj }),
-    });
-    const json = await response.json();
-
-    const data = json.result == 'success' ? json.data : null;
-
-    // Chamar o hook
-    if (typeof window.afterGetCnpj === "function") {
-        afterGetCnpj(data, event);
-    }
 }
 
 function selectByTextContains(element, text) {
